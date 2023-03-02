@@ -39,7 +39,7 @@ def get_font(font='LoveIsEasy.otf'):
         get_font()
 
 def get_file_name(name='word cloud'):
-    file_name = input('Please enter the name of the World Cloud Image.\n')
+    file_name = input('Please enter the name of the Word Cloud Image.\n')
     if len(file_name) > 0:
         name = file_name
     return name
