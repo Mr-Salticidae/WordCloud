@@ -4,13 +4,13 @@ import pandas as pd
 from PIL import Image
 import numpy as np
 
-def read_file(csv_file='Youtube04-Eminem.csv'):
+def read_file(csv_file='texts.json'):
     print('Please enter the name of the file you want to build a word cloud.\n')
     csv_file_name = input()
     if len(csv_file_name) > 0:
         csv_file = csv_file_name
     try:
-        df = pd.read_csv(csv_file, encoding='latin-1')
+        df = pd.read_json(csv_file)
         return df
     except:
         print('There is no file called ' + csv_file + ' in this folder, try again.')
@@ -46,14 +46,14 @@ def get_file_name(name='word cloud'):
 
 
 df = read_file()
-mask = get_mask()
-font = get_font()
+# mask = get_mask()
+# font = get_font()
 name = get_file_name()
 
 comment_words = ''
 stopwords = set(STOPWORDS)
 
-for val in df.CONTENT:
+for val in df.iloc[:, 0]:
     val = str(val)
     tokens = val.split()
     
@@ -62,7 +62,7 @@ for val in df.CONTENT:
     
     comment_words += ' '.join(tokens) + ' '
 
-wordcloud = WordCloud(width=mask.shape[1], height=mask.shape[0], stopwords=stopwords, font_path=font, mask=mask, background_color='white').generate(comment_words)
+wordcloud = WordCloud(width=1000, height=500, stopwords=stopwords, background_color='white').generate(comment_words)
 
 plt.figure(figsize=(8, 8), facecolor=None)
 plt.imshow(wordcloud)
